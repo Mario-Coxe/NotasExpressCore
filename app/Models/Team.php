@@ -18,10 +18,30 @@ class Team extends Model
         return $this->hasMany(Curso::class);
     }
 
+    public function professores(): HasMany
+    {
+        return $this->hasMany(Professor::class);
+    }
+
+    public function alunos(): HasMany
+    {
+        return $this->hasMany(Aluno::class);
+    }
+
+    public function professors(): HasMany
+    {
+        return $this->hasMany(Aluno::class);
+    }
+
+    public function disciplinas(): HasMany
+    {
+        return $this->hasMany(Aluno::class);
+    }
+
+
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
-
 
 }

@@ -4,17 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Professor extends Model
+
+class Aluno extends Model
 {
     use HasFactory;
 
-    protected $table = 'professores';
-
-
-    protected $fillable = ['nome', 'bi', 'telefone', 'password', 'team_id', 'status'];
-
-    public function team()
+    protected $fillable = ['nome', 'bi', 'telefone', 'password', 'foto', 'status'];
+    
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
     }

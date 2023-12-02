@@ -35,7 +35,7 @@ class CursosResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('nome')
+                TextColumn::make('nome')->searchable()
             ])
             ->filters([
                 //
