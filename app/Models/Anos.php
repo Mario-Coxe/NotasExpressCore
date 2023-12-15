@@ -11,7 +11,11 @@ class Anos extends Model
 
     protected $table = 'anos';
 
-    protected $fillable = ['ano '];
+    protected $fillable = ['ano'];
 
-
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+    
 }

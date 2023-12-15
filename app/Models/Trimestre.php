@@ -11,7 +11,12 @@ class Trimestre extends Model
 
     protected $table = 'trimestres';
 
-    protected $fillable = ['trimestre '];
+    protected $fillable = ['trimestre'];
 
-
+    
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+    
 }

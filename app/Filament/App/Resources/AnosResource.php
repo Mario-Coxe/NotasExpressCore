@@ -2,9 +2,9 @@
 
 namespace App\Filament\App\Resources;
 
-use App\Filament\App\Resources\ProfessoresResource\Pages;
-use App\Filament\App\Resources\ProfessoresResource\RelationManagers;
-use App\Models\Professor;
+use App\Filament\App\Resources\AnosResource\Pages;
+use App\Filament\App\Resources\AnosResource\RelationManagers;
+use App\Models\Anos;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,14 +12,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\TextInput;
 
-class ProfessoresResource extends Resource
+
+class AnosResource extends Resource
 {
-    protected static ?string $model = Professor::class;
+    protected static ?string $model = Anos::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -28,18 +27,7 @@ class ProfessoresResource extends Resource
         return $form
             ->schema([
                 //
-                TextInput::make('nome'),
-                TextInput::make('password')
-                ->placeholder('Senha'),
-                TextInput::make('telefone')
-                ->tel()
-                ->placeholder('Número de Telefone')
-                ->length(9),
-                TextInput::make('bi')
-                ->placeholder('Número deo BI'),
-                Toggle::make('status')
-                ->onColor('success')
-                ->offColor('danger')
+                TextInput::make('ano')
                 
             ]);
     }
@@ -49,11 +37,7 @@ class ProfessoresResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('nome')->searchable(),
-                TextColumn::make('password')->searchable(),
-                TextColumn::make('telefone')->searchable(),
-                TextColumn::make('bi')->searchable(),
-                IconColumn::make('status')->boolean(),
+                TextColumn::make('ano')->searchable(),
                 TextColumn::make('created_at')
 
             ])
@@ -83,9 +67,9 @@ class ProfessoresResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProfessores::route('/'),
-            'create' => Pages\CreateProfessores::route('/create'),
-            'edit' => Pages\EditProfessores::route('/{record}/edit'),
+            'index' => Pages\ListAnos::route('/'),
+            'create' => Pages\CreateAnos::route('/create'),
+            'edit' => Pages\EditAnos::route('/{record}/edit'),
         ];
     }    
 }

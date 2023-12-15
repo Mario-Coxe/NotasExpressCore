@@ -55,6 +55,8 @@ class AlunosResource extends Resource
                 TextColumn::make('telefone')->searchable(),
                 TextColumn::make('bi')->searchable(),
                 IconColumn::make('status')->boolean(),
+                TextColumn::make('created_at')
+
             ])
             ->filters([
                 //

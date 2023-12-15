@@ -28,7 +28,7 @@ class Team extends Model
         return $this->hasMany(Aluno::class);
     }
 
-  
+
 
     public function disciplinas(): HasMany
     {
@@ -40,11 +40,21 @@ class Team extends Model
         return $this->hasMany(Encarregado::class);
     }
 
+    
+    public function trimestres(): HasMany
+    {
+        return $this->hasMany(Trimestre::class);
+    }
+
+    public function anos(): HasMany
+    {
+        return $this->hasMany(Anos::class);
+    }
+
 
 
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
-
 }

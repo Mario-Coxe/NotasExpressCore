@@ -63,6 +63,8 @@ class DisciplinaResource extends Resource
             TextColumn::make('professor.nome')
                 ->label('Professor')
                 ->searchable(),
+                TextColumn::make('created_at')
+
         ])
             ->filters([
                 //

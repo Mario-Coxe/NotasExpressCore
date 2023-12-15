@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('anos', function (Blueprint $table) {
             $table->id();
             $table->string('ano')->unique();
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

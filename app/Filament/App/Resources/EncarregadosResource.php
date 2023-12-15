@@ -62,6 +62,7 @@ class EncarregadosResource extends Resource
                 Forms\Components\Select::make('aluno_id')
                 ->options($alunos)
                 ->required(),
+
             ]);
     }
 
@@ -79,6 +80,8 @@ class EncarregadosResource extends Resource
                 TextColumn::make('aluno.nome')
                 ->label('Aluno')
                 ->searchable(),
+                TextColumn::make('created_at')
+
 
             ])
             ->filters([
