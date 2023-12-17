@@ -21,7 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-
+//TEAM USER CONTROLLERS
 Route::get('/users/{userId}/teams', [TeamUserController::class, 'edit']);
 Route::get('/teams/{teamId}/courses', [TeamUserController::class, 'getTeamCourses']);
-Route::get('/courses-for-current-user', [TeamUserController::class, 'getTeamCoursesForCurrentUser']);
