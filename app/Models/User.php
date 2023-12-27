@@ -14,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements HasTenants
+class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -27,7 +27,8 @@ class User extends Authenticatable implements HasTenants
         'name',
         'email',
         'password',
-        'is_admin'
+        'is_admin',
+        'is_active'
     ];
 
     /**
@@ -51,10 +52,12 @@ class User extends Authenticatable implements HasTenants
         'is_admin' => 'boolean',
     ];
 
+    /*
     public function getTenants(Panel $panel): Collection
     {
         return $this->teams;
     }
+    */
 
     public function teams(): BelongsToMany
     {

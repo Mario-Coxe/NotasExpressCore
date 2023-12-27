@@ -80,6 +80,7 @@ class ProfessoresResource extends Resource
         ];
     }
     
+    /*
     public static function getPages(): array
     {
         return [
@@ -87,5 +88,6 @@ class ProfessoresResource extends Resource
             'create' => Pages\CreateProfessores::route('/create'),
             'edit' => Pages\EditProfessores::route('/{record}/edit'),
         ];
-    }    
+    }  
+    */  
 }

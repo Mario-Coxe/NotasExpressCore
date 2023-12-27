@@ -62,6 +62,7 @@ class CursosResource extends Resource
         ];
     }
     
+    /*
     public static function getPages(): array
     {
         return [
@@ -70,4 +71,6 @@ class CursosResource extends Resource
             'edit' => Pages\EditCursos::route('/{record}/edit'),
         ];
     }    
+
+    */
 }

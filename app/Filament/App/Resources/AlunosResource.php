@@ -81,12 +81,16 @@ class AlunosResource extends Resource
         ];
     }
     
+     /*
     public static function getPages(): array
     {
+       
         return [
             'index' => Pages\ListAlunos::route('/'),
             'create' => Pages\CreateAlunos::route('/create'),
             'edit' => Pages\EditAlunos::route('/{record}/edit'),
         ];
+       
     }    
+     */
 }

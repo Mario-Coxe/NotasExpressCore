@@ -107,6 +107,7 @@ class EncarregadosResource extends Resource
         ];
     }
     
+    /*
     public static function getPages(): array
     {
         return [
@@ -115,4 +116,5 @@ class EncarregadosResource extends Resource
             'edit' => Pages\EditEncarregados::route('/{record}/edit'),
         ];
     }    
+    */
 }

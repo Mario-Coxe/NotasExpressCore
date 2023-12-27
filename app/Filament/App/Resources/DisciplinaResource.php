@@ -89,6 +89,7 @@ class DisciplinaResource extends Resource
         ];
     }
     
+    /*
     public static function getPages(): array
     {
         return [
@@ -97,6 +98,8 @@ class DisciplinaResource extends Resource
             'edit' => Pages\EditDisciplina::route('/{record}/edit'),
         ];
     }
+
+    */
 
     // Método para substituir os IDs pelos nomes nas colunas da tabela
     public static function getColumns(): array
