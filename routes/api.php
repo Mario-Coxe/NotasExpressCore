@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+<<<<<<< HEAD
+=======
+
+
+
+//TEAM USER CONTROLLERS
+Route::get('/users/{userId}/teams', [TeamUserController::class, 'edit']);
+Route::get('/teams/{teamId}/courses', [TeamUserController::class, 'getTeamCourses']);
+>>>>>>> e387ce99708f1bdc4654ea94becbb73cf2bff147
