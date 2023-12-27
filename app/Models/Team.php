@@ -23,26 +23,6 @@ class Team extends Model
         return $this->hasMany(Employee::class);
     }
 
-<<<<<<< HEAD
-=======
-    public function alunos(): HasMany
-    {
-        return $this->hasMany(Aluno::class);
-    }
-
-
-
-    public function disciplinas(): HasMany
-    {
-        return $this->hasMany(Aluno::class);
-    }
-
-    public function encarregados(): HasMany
-    {
-        return $this->hasMany(Encarregado::class);
-    }
-
-    
     public function trimestres(): HasMany
     {
         return $this->hasMany(Trimestre::class);
@@ -55,7 +35,6 @@ class Team extends Model
 
 
 
->>>>>>> e387ce99708f1bdc4654ea94becbb73cf2bff147
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
