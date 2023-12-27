@@ -13,49 +13,15 @@ class Team extends Model
 
     protected $fillable = ['name', 'slug'];
 
-    public function cursos(): HasMany
+    public function employees(): HasMany
     {
-        return $this->hasMany(Curso::class);
+        return $this->hasMany(Employee::class);
     }
 
-    public function professores(): HasMany
+    public function departments(): HasMany
     {
-        return $this->hasMany(Professor::class);
+        return $this->hasMany(Employee::class);
     }
-
-    public function alunos(): HasMany
-    {
-        return $this->hasMany(Aluno::class);
-    }
-
-    public function events(): HasMany
-    {
-        return $this->hasMany(Event::class);
-    }
-
-
-    public function disciplinas(): HasMany
-    {
-        return $this->hasMany(Aluno::class);
-    }
-
-    public function encarregados(): HasMany
-    {
-        return $this->hasMany(Encarregado::class);
-    }
-
-    
-    public function trimestres(): HasMany
-    {
-        return $this->hasMany(Trimestre::class);
-    }
-
-    public function anos(): HasMany
-    {
-        return $this->hasMany(Anos::class);
-    }
-
-
 
     public function members(): BelongsToMany
     {
