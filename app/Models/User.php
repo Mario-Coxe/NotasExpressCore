@@ -27,8 +27,7 @@ class User extends Authenticatable implements HasTenants
         'name',
         'email',
         'password',
-        'is_admin',
-        'is_active'
+        'is_admin'
     ];
 
     /**
