@@ -6,25 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-class Disciplina extends Model
+class Trimestres extends Model
 {
     use HasFactory;
+    protected $table = 'trimestres';
 
-    protected $fillable = ['nome', 'professor_id', 'curso_id'];
-
-    public function professor()
-    {
-        return $this->belongsTo(Professor::class);
-    }
-
-    public function curso()
-    {
-        return $this->belongsTo(Curso::class);
-    }
+    protected $fillable = ['name', 'start_date', 'end_date', 'is_active'];
 
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
     }
+
 }

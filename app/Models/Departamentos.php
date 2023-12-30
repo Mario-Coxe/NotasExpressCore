@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Professor extends Model
+class Departamentos extends Model
 {
     use HasFactory;
 
-    protected $table = 'professores';
-
-
-    protected $fillable = ['nome', 'bi', 'telefone', 'password', 'team_id', 'status'];
+    protected $fillable = ['name', 'is_active'];
 
     public function team()
     {
         return $this->belongsTo(Team::class);
     }
+
 }

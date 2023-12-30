@@ -4,19 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Trimestre extends Model
+class Disciplinas extends Model
 {
     use HasFactory;
 
-    protected $table = 'trimestres';
+    protected $fillable = ['name', 'description', 'is_active' ];
 
-    protected $fillable = ['trimestre'];
-
-    
-    public function team()
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
     }
-    
 }

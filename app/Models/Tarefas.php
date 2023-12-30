@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-class Curso extends Model
+class Tarefas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'team_id'];
+    protected $table = 'tarefas';
+
+    protected $fillable = ['description', 'due_date', 'is_active'];
 
     public function team(): BelongsTo
     {
