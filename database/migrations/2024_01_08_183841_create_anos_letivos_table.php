@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('disciplinas', function (Blueprint $table) {
+        Schema::create('anos_letivos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('course_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('professor_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->string('description');
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(1);
+            $table->string('name')->unique();
+            $table->date("start_date");
+            $table->date("end_date");
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('disciplinas');
+        Schema::dropIfExists('anos_letivos');
     }
 };

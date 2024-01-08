@@ -65,4 +65,6 @@ class User extends Authenticatable implements HasTenants
     {
         return $this->teams->contains($tenant);
     }
+
+
 }
