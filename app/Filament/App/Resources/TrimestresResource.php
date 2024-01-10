@@ -2,9 +2,9 @@
 
 namespace App\Filament\App\Resources;
 
-use App\Filament\App\Resources\AnosLetivosResource\Pages;
-use App\Filament\App\Resources\AnosLetivosResource\RelationManagers;
-use App\Models\AnosLetivos;
+use App\Filament\App\Resources\TrimestresResource\Pages;
+use App\Filament\App\Resources\TrimestresResource\RelationManagers;
+use App\Models\Trimestres;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,17 +12,35 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Filament\Notifications\Notification;
 
 
-class AnosLetivosResource extends Resource
+class TrimestresResource extends Resource
 {
-    protected static ?string $model = AnosLetivos::class;
+    protected static ?string $model = Trimestres::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+    protected static ?string $navigationIcon = 'heroicon-o-clock';
 
     public static function form(Form $form): Form
     {
+
+        $user = Auth::user();
+
+        $currentTeam = $user ? $user->teams->first() : null;
+
+
+        $academic_year = $currentTeam
+            ? $currentTeam->anosLetivos->pluck('name', 'id')->toArray()
+            : [];
+
+        /*
+        echo '<script>';
+        echo 'console.log("CURRENT TEAM: ", ' . json_encode($currentTeam) . ');';
+        echo '</script>';
+        */
+
+
         return $form
             ->schema([
                 Forms\Components\Section::make('Tempo')
@@ -45,8 +63,16 @@ class AnosLetivosResource extends Resource
                                 '0' => 'Desativo',
                             ]),
                         Forms\Components\TextInput::make('name')
-                            ->label("Ano Letivo")
+                            ->label("Trimestre")
                     ])->columns(2),
+                Forms\Components\Section::make('Ano Letivo')
+                    ->schema([
+                        Forms\Components\Select::make('academic_year_id')
+                            ->label("Ano Letivo")
+                            ->options($academic_year)
+                            ->required(),
+                    ]),
+
             ]);
     }
 
@@ -54,7 +80,11 @@ class AnosLetivosResource extends Resource
     {
         return $table
             ->columns([
+                //
                 Tables\Columns\TextColumn::make('name')
+                    ->label("Trimestre")
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('anosLetivos.name')
                     ->label("Ano Letivo")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('start_date')
@@ -63,7 +93,6 @@ class AnosLetivosResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')
                     ->searchable()
                     ->label("Fim"),
-
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
@@ -79,7 +108,6 @@ class AnosLetivosResource extends Resource
             ->filters([
                 //
             ])
-
             ->actions([
 
                 Tables\Actions\ActionGroup::make([
@@ -88,12 +116,12 @@ class AnosLetivosResource extends Resource
                         ->successNotification(
                             Notification::make()
                                 ->success()
-                                ->title('Ano Letivo Editado.')
-                                ->body('O Ano Letivo foi editado com sucesso.')
+                                ->title('Trimestre Editado.')
+                                ->body('O Trimestre foi editado com sucesso.')
 
                         ),
+                ])
 
-                ]),
 
             ])
             ->bulkActions([
@@ -102,20 +130,14 @@ class AnosLetivosResource extends Resource
                         ->successNotification(
                             Notification::make()
                                 ->success()
-                                ->title('Ano Letivo Eliminado.')
-                                ->body('O Ano Letivo foi excluído com sucesso.')
+                                ->title('Trimestre Eliminado.')
+                                ->body('O Trimestre foi excluído com sucesso.')
 
                         )
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make()
-                    ->successNotification(
-                        Notification::make()
-                            ->success()
-                            ->title('Criado')
-                            ->body('Ano Letivo foi Criado com sucesso.')
-                    )
+                Tables\Actions\CreateAction::make(),
             ]);
     }
 
@@ -129,9 +151,9 @@ class AnosLetivosResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAnosLetivos::route('/'),
-            'create' => Pages\CreateAnosLetivos::route('/create'),
-            'edit' => Pages\EditAnosLetivos::route('/{record}/edit'),
+            'index' => Pages\ListTrimestres::route('/'),
+            'create' => Pages\CreateTrimestres::route('/create'),
+            'edit' => Pages\EditTrimestres::route('/{record}/edit'),
         ];
     }
 }
