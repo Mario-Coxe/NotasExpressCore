@@ -53,9 +53,9 @@ class User extends Authenticatable implements HasTenants
 
     public function getTenants(Panel $panel): Collection
     {
-        return $this->teams;
+        return $this->teams()->get();
     }
-
+    
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class);

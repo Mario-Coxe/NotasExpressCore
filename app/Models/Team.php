@@ -33,4 +33,13 @@ class Team extends Model
         return $this->HasMany(AnosLetivos::class);
     }
 
+    public function trimestres(): HasMany
+    {
+        return $this->HasMany(Trimestres::class);
+    }
+
+    public function professores(): HasMany
+    {
+        return $this->HasMany(Professores::class);
+    }
 }
