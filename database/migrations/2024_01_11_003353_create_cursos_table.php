@@ -17,13 +17,13 @@ return new class extends Migration
             $table->foreignId('academic_year_id')->constrained('anos_letivos')->onDelete('cascade');
             $table->foreignId('responsible_professor_id')->constrained('professores')->onDelete('cascade');
             $table->boolean('is_active')->default(1);
-            $table->string('name')->unique();
-            $table->string('description');
+            $table->string('name');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
+/**
      * Reverse the migrations.
      */
     public function down(): void

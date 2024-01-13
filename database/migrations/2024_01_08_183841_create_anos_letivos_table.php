@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_active')->default(1);
-            $table->string('name')->unique();
+            $table->string('name');
             $table->date("start_date");
             $table->date("end_date");
             $table->timestamps();

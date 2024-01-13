@@ -57,7 +57,7 @@ class ProfessoresResource extends Resource
                             ->prefix('+244'),
                         Forms\Components\TextInput::make('password')
                             ->label("Senha")
-                            ->password()
+                            
 
                     ])->columns(2),
 
