@@ -43,7 +43,7 @@ class Team extends Model
         return $this->HasMany(Professores::class);
     }
 
-    
+
     public function cursos(): HasMany
     {
         return $this->HasMany(Cursos::class);
@@ -54,5 +54,8 @@ class Team extends Model
         return $this->HasMany(Disciplinas::class);
     }
 
-
+    public function turmas(): HasMany
+    {
+        return $this->HasMany(Turmas::class);
+    }
 }
