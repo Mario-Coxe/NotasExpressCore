@@ -37,8 +37,8 @@ class ProfessoresResource extends Resource
                         Forms\Components\Select::make('sex')
                             ->label("Sexo")
                             ->options([
-                                'Male' => 'Masculino',
-                                'Female' => 'Femenino',
+                                'Masculino' => 'Masculino',
+                                'Femenino' => 'Femenino',
                             ]),
                         Forms\Components\Select::make('is_active')
                             ->label("Estado")

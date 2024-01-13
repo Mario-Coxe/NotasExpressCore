@@ -92,18 +92,18 @@ class CursosResource extends Resource
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
-                Tables\Columns\TextInputColumn::make('description')
+                Tables\Columns\TextColumn::make('description')
                     ->label("Descrição")
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

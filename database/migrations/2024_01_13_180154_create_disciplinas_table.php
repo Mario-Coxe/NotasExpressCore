@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('professores', function (Blueprint $table) {
+        Schema::create('disciplinas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('course_id')->constrained('cursos')->onDelete('cascade');
+            $table->foreignId('responsible_professor_id')->constrained('professores')->onDelete('cascade');
             $table->boolean('is_active')->default(1);
             $table->string('name');
-            $table->enum('sex', ['Masculino', 'Femenino']);
-            $table->string('address');
-            $table->string('email')->unique();
-            $table->string('phone_number')->unique();
-            $table->string('password');
-            $table->string('photo')->default('default.png');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('professores');
+        Schema::dropIfExists('disciplinas');
     }
 };

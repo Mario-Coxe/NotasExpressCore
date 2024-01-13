@@ -12,6 +12,16 @@ class Professores extends Model
 
     protected $fillable = ['name', 'is_active', 'sex', 'address', 'email', 'phone_number', 'password', 'photo'];
 
+    /*
+    protected $hidden = [
+        'password',
+    ];
+    */
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);

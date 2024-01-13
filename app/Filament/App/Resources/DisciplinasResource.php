@@ -2,9 +2,9 @@
 
 namespace App\Filament\App\Resources;
 
-use App\Filament\App\Resources\TrimestresResource\Pages;
-use App\Filament\App\Resources\TrimestresResource\RelationManagers;
-use App\Models\Trimestres;
+use App\Filament\App\Resources\DisciplinasResource\Pages;
+use App\Filament\App\Resources\DisciplinasResource\RelationManagers;
+use App\Models\Disciplinas;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Notifications\Notification;
 
 
-class TrimestresResource extends Resource
+class DisciplinasResource extends Resource
 {
-    protected static ?string $model = Trimestres::class;
+    protected static ?string $model = Disciplinas::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clock';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     public static function form(Form $form): Form
     {
@@ -30,50 +30,40 @@ class TrimestresResource extends Resource
         $currentTeam = $user ? $user->teams->first() : null;
 
 
-        $academic_year = $currentTeam
-            ? $currentTeam->anosLetivos->pluck('name', 'id')->toArray()
+        $professor = $currentTeam
+            ? $currentTeam->professores->pluck('name', 'id')->toArray()
             : [];
-
-        /*
-        echo '<script>';
-        echo 'console.log("CURRENT TEAM: ", ' . json_encode($currentTeam) . ');';
-        echo '</script>';
-        */
+        $course = $currentTeam
+            ? $currentTeam->cursos->pluck('name', 'id')->toArray()
+            : [];
 
 
         return $form
             ->schema([
-                Forms\Components\Section::make('Tempo')
+                Forms\Components\Section::make('Relação')
                     ->schema([
-                        Forms\Components\DatePicker::make('start_date')
-                            ->label("Data De Início")
-                            ->native(true)
-                            ->displayFormat('d/m/Y'),
-                        Forms\Components\DatePicker::make('end_date')
-                            ->label("Data De Fim")
-                            ->native(true)
-                            ->displayFormat('d/m/Y')
-                    ])->columns(2),
+                        Forms\Components\Select::make('responsible_professor_id')
+                            ->label("Professor Responsável")
+                            ->options($professor)
+                            ->required(),
+                        Forms\Components\Select::make('course_id')
+                            ->label("Curso")
+                            ->options($course)
+                            ->required(),
+                    ]),
                 Forms\Components\Section::make('Informações')
                     ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->label("Disciplina")
+                            ->required(),
                         Forms\Components\Select::make('is_active')
                             ->label("Estado")
                             ->options([
                                 '1' => 'Activo',
                                 '0' => 'Desativo',
                             ]),
-                        Forms\Components\TextInput::make('name')
-                            ->label("Trimestre")
-                            ->maxLength(1)
-                            ->maxValue(3)
                     ])->columns(2),
-                Forms\Components\Section::make('Ano Letivo')
-                    ->schema([
-                        Forms\Components\Select::make('academic_year_id')
-                            ->label("Ano Letivo")
-                            ->options($academic_year)
-                            ->required(),
-                    ]),
+
 
             ]);
     }
@@ -82,22 +72,22 @@ class TrimestresResource extends Resource
     {
         return $table
             ->columns([
-                //
                 Tables\Columns\TextColumn::make('name')
-                    ->label("Trimestre")
+                    ->label("Nome")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('anosLetivos.name')
+                Tables\Columns\TextColumn::make('professores.name')
+                    ->label("Professor Responsável")
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cursos.name')
                     ->label("Ano Letivo")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('start_date')
-                    ->searchable()
-                    ->label("início"),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->searchable()
-                    ->label("Fim"),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label("Descrição")
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -111,19 +101,17 @@ class TrimestresResource extends Resource
                 //
             ])
             ->actions([
-
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make()
                         ->successNotification(
                             Notification::make()
                                 ->success()
-                                ->title('Trimestre Editado.')
-                                ->body('O Trimestre foi editado com sucesso.')
+                                ->title('Disciplina Editada.')
+                                ->body('A Disciplina foi editado com sucesso.')
 
                         ),
                 ])
-
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -131,8 +119,8 @@ class TrimestresResource extends Resource
                         ->successNotification(
                             Notification::make()
                                 ->success()
-                                ->title('Trimestre Eliminado.')
-                                ->body('O Trimestre foi excluído com sucesso.')
+                                ->title('Disciplina Eliminada.')
+                                ->body('A Disciplina foi excluído com sucesso.')
 
                         )
                 ]),
@@ -152,9 +140,9 @@ class TrimestresResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTrimestres::route('/'),
-            'create' => Pages\CreateTrimestres::route('/create'),
-            'edit' => Pages\EditTrimestres::route('/{record}/edit'),
+            'index' => Pages\ListDisciplinas::route('/'),
+            'create' => Pages\CreateDisciplinas::route('/create'),
+            'edit' => Pages\EditDisciplinas::route('/{record}/edit'),
         ];
     }
 }
