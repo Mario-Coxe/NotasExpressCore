@@ -63,4 +63,9 @@ class Team extends Model
     {
         return $this->HasMany(Horarios::class);
     }
+
+    public function calendarios(): HasMany
+    {
+        return $this->HasMany(Calendarios::class);
+    }
 }
