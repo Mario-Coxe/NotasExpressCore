@@ -58,4 +58,9 @@ class Team extends Model
     {
         return $this->HasMany(Turmas::class);
     }
+
+    public function horarios(): HasMany
+    {
+        return $this->HasMany(Horarios::class);
+    }
 }

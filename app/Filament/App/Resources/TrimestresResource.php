@@ -20,7 +20,7 @@ class TrimestresResource extends Resource
 {
     protected static ?string $model = Trimestres::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clock';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {

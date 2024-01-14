@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('horarios', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('class_id')->constrained('turmas')->onDelete('cascade');
+            $table->foreignId('subjet_id')->constrained('disciplinas')->onDelete('cascade');
+            $table->foreignId('trimester_id')->constrained('trimestres')->onDelete('cascade');
+            $table->boolean('is_active')->default(1);
+            $table->string('day_of_week');
+            $table->string("start_time");
+            $table->string("end_time");
             $table->timestamps();
         });
     }
