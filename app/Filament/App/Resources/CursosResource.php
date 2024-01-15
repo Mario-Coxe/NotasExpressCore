@@ -127,7 +127,6 @@ class CursosResource extends Resource
                                 ->success()
                                 ->title('Curso Eliminado.')
                                 ->body('O Curso foi excluído com sucesso.')
-
                         )
                 ]),
             ])
