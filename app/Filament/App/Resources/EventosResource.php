@@ -68,7 +68,7 @@ class EventosResource extends Resource
                             ->label("Imagem")
                             ->visibility('public')
                             ->directory('events-images')
- 
+
                     ]),
 
                 Forms\Components\Section::make('')
@@ -116,11 +116,27 @@ class EventosResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make()
+                        ->successNotification(
+                            Notification::make()
+                                ->success()
+                                ->title('Evento Editado.')
+                                ->body('O Evento foi editado com sucesso.')
+
+                        ),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->successNotification(
+                            Notification::make()
+                                ->success()
+                                ->title('Evento Eliminado.')
+                                ->body('O Evento foi excluído com sucesso.')
+                        )
                 ]),
             ])
             ->emptyStateActions([
