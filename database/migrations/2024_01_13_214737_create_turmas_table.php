@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('classroom_number')->nullable();
             $table->enum('degree', ['10ª', '11ª', '12ª', '13ª']);
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

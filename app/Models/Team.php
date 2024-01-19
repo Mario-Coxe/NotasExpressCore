@@ -68,4 +68,9 @@ class Team extends Model
     {
         return $this->HasMany(Calendarios::class);
     }
+
+    public function eventos(): HasMany
+    {
+        return $this->HasMany(Eventos::class);
+    }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('class_id')->constrained('turmas')->onDelete('cascade');
             $table->date('data_day');
             $table->boolean('is_active')->default(1);
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

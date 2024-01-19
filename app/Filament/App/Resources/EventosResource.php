@@ -2,9 +2,9 @@
 
 namespace App\Filament\App\Resources;
 
-use App\Filament\App\Resources\CalendariosResource\Pages;
-use App\Filament\App\Resources\CalendariosResource\RelationManagers;
-use App\Models\Calendarios;
+use App\Filament\App\Resources\EventosResource\Pages;
+use App\Filament\App\Resources\EventosResource\RelationManagers;
+use App\Models\Eventos;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Carbon;
 
-class CalendariosResource extends Resource
+class EventosResource extends Resource
 {
-    protected static ?string $model = Calendarios::class;
+    protected static ?string $model = Eventos::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -30,20 +30,23 @@ class CalendariosResource extends Resource
         $currentTeam = $user ? $user->teams->first() : null;
 
 
-        $class = $currentTeam
-            ? $currentTeam->turmas->pluck('name', 'id')->toArray()
+        $academicYear = $currentTeam
+            ? $currentTeam->anosLetivos->pluck('name', 'id')->toArray()
             : [];
 
-
         return $form
+
             ->schema([
-                Forms\Components\Section::make('Relações')
+                Forms\Components\Section::make('')
                     ->schema([
                         Forms\Components\Section::make('')
                             ->schema([
-                                Forms\Components\Select::make('class_id')
-                                    ->label("Turma")
-                                    ->options($class)
+                                Forms\Components\TextInput::make('theme')
+                                    ->label("Tema")
+                                    ->required(),
+                                Forms\Components\Select::make('academic_year_id')
+                                    ->label("Ano Letivo")
+                                    ->options($academicYear)
                                     ->required(),
                             ]),
                     ]),
@@ -55,37 +58,47 @@ class CalendariosResource extends Resource
                                 '1' => 'Activo',
                                 '0' => 'Desativo',
                             ]),
-                        Forms\Components\DatePicker::make('data_day')
-                            ->label("Data")
+                        Forms\Components\DateTimePicker::make('data_time')
+                            ->label("Data e Hora")
                             ->native(true)
                     ])->columns(2),
+                Forms\Components\Section::make('')
+                    ->schema([
+                        Forms\Components\FileUpload::make('photo')
+                            ->label("Imagem")
+                            ->visibility('public')
+                            ->directory('events-images')
+ 
+                    ]),
+
                 Forms\Components\Section::make('')
                     ->schema([
                         Forms\Components\Textarea::make('description')
                             ->label("Descrição")
                             ->maxLength(800),
                     ]),
-
-
             ]);
     }
-
-
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('turmas.name')
-                    ->label("Turma")
+                Tables\Columns\TextColumn::make('theme')
+                    ->label("Tema")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('data_day')
+                Tables\Columns\TextColumn::make('anosLetivos.name')
+                    ->label("Ano Letivo")
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('data_time')
                     ->label("Data")
                     ->searchable()
                     ->date(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label("Imagem"),
                 Tables\Columns\TextColumn::make('description')
                     ->label("Descrição")
                     ->searchable()
@@ -103,27 +116,11 @@ class CalendariosResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make(),
-                    Tables\Actions\EditAction::make()
-                        ->successNotification(
-                            Notification::make()
-                                ->success()
-                                ->title('Calendário Editado.')
-                                ->body('O Calendário foi editado com sucesso.')
-
-                        ),
-                ])
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
-                        ->successNotification(
-                            Notification::make()
-                                ->success()
-                                ->title('Calendário Eliminado.')
-                                ->body('O Calendário foi excluído com sucesso.')
-                        )
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
             ->emptyStateActions([
@@ -141,9 +138,9 @@ class CalendariosResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCalendarios::route('/'),
-            'create' => Pages\CreateCalendarios::route('/create'),
-            'edit' => Pages\EditCalendarios::route('/{record}/edit'),
+            'index' => Pages\ListEventos::route('/'),
+            'create' => Pages\CreateEventos::route('/create'),
+            'edit' => Pages\EditEventos::route('/{record}/edit'),
         ];
     }
 }
