@@ -21,7 +21,7 @@ class StatsAppOverview extends BaseWidget
     {
         return [
             /*
-                            Stat::make('Users', Team::find(Filament::getTenant())->first()->members->count())
+                            Stat::make('Users', Team::find(Filament::getTenant())->first()->members->getStats())
                 ->description('All users from the database')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
