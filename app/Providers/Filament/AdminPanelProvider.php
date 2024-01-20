@@ -44,7 +44,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Inter')
             ->navigationGroups([
-                'Employee Management',
+                'Gestão de Professor',
                 'System Management',
                 'User Management'
             ])

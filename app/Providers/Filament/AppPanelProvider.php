@@ -40,6 +40,12 @@ class AppPanelProvider extends PanelProvider
                     ->url('/admin')
                     ->visible(fn (): bool => auth()->user()->is_admin)
             ])
+            ->font('Poppins')
+            ->navigationGroups([
+                'Employee Management',
+                'System Management',
+                'User Management'
+            ])
             ->colors([
                 'danger' => Color::Red,
                 'gray' => Color::Slate,
