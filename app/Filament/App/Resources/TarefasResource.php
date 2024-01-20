@@ -65,7 +65,7 @@ class TarefasResource extends Resource
                             ]),
                         Forms\Components\Textarea::make('description')
                             ->label("Descrição")
-
+                            ->autosize()
 
                     ])->columns(2),
             ]);
