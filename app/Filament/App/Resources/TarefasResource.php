@@ -118,10 +118,13 @@ class TarefasResource extends Resource
                                 ->body('Tarefa/a  foi Criado com sucesso.')
                         )
                 ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
+           
+    }
+
+    public static function canCreate(): bool
+    {
+       return false;
     }
 
     public static function getRelations(): array
