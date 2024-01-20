@@ -2,9 +2,9 @@
 
 namespace App\Filament\App\Resources;
 
-use App\Filament\App\Resources\ProfessoresResource\Pages;
-use App\Filament\App\Resources\ProfessoresResource\RelationManagers;
-use App\Models\Professores;
+use App\Filament\App\Resources\AlunosResource\Pages;
+use App\Filament\App\Resources\AlunosResource\RelationManagers;
+use App\Models\Alunos;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,16 +13,29 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 
 
-class ProfessoresResource extends Resource
+class AlunosResource extends Resource
 {
-    protected static ?string $model = Professores::class;
+    protected static ?string $model = Alunos::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-plus';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
+
+        $user = Auth::user();
+
+        $currentTeam = $user ? $user->teams->first() : null;
+
+
+        $class = $currentTeam
+            ? $currentTeam->turmas->pluck('name', 'id')->toArray()
+            : [];
+
+
+
         return $form
             ->schema([
                 Forms\Components\Section::make('Informaçãoes')
@@ -30,14 +43,17 @@ class ProfessoresResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->label("Nome")
                             ->required(),
+                        Forms\Components\TextInput::make('bi')
+                            ->label("Número do BI")
+                            ->required(),
                         Forms\Components\TextInput::make('email')
                             ->label("Email")
-                            ->required()
                             ->email(),
                         Forms\Components\TextInput::make('address')
                             ->label("Morada"),
                         Forms\Components\Select::make('sex')
                             ->label("Sexo")
+                            ->required()
                             ->options([
                                 'Masculino' => 'Masculino',
                                 'Femenino' => 'Femenino',
@@ -49,21 +65,25 @@ class ProfessoresResource extends Resource
                                 '0' => 'Desativo',
                             ]),
                     ])->columns(2),
+
+                Forms\Components\Section::make('Relação')
+                    ->schema([
+                        Forms\Components\Select::make('class_id')
+                            ->label("Turma")
+                            ->options($class)
+                            ->required(),
+                    ])->columns(2),
                 Forms\Components\Section::make('Acesso ao aplicativo')
                     ->schema([
                         Forms\Components\TextInput::make('phone_number')
                             ->label("Telefone")
-                            ->maxLength(9)
                             ->required()
+                            ->maxLength(9)
                             ->tel()
                             ->autocomplete('new-password')
                             ->prefix('+244'),
                         Forms\Components\TextInput::make('password')
                             ->label("Senha")
-                            ->required()
-
-
-
                     ])->columns(2),
 
             ]);
@@ -82,12 +102,15 @@ class ProfessoresResource extends Resource
                 Tables\Columns\TextColumn::make('phone_number')
                     ->searchable()
                     ->label("Telefone"),
-                Tables\Columns\TextColumn::make('sex')
+                Tables\Columns\TextColumn::make('bi')
                     ->searchable()
-                    ->label("Sexo"),
+                    ->label("Número do BI"),
                 Tables\Columns\TextColumn::make('address')
                     ->searchable()
                     ->label("Morada"),
+                Tables\Columns\TextColumn::make('turmas.name')
+                    ->searchable()
+                    ->label("Turma"),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
@@ -102,8 +125,8 @@ class ProfessoresResource extends Resource
                         ->successNotification(
                             Notification::make()
                                 ->success()
-                                ->title('Professor/a Editado.')
-                                ->body('O Professor/a foi editado com sucesso.')
+                                ->title('Aluno/a Editado.')
+                                ->body('O Aluno/a foi editado com sucesso.')
                         ),
 
                 ]),
@@ -115,7 +138,7 @@ class ProfessoresResource extends Resource
                             Notification::make()
                                 ->success()
                                 ->title('Criado')
-                                ->body('Professor/a  foi Criado com sucesso.')
+                                ->body('Aluno/a  foi Criado com sucesso.')
                         )
                 ]),
             ])
@@ -134,9 +157,9 @@ class ProfessoresResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProfessores::route('/'),
-            'create' => Pages\CreateProfessores::route('/create'),
-            'edit' => Pages\EditProfessores::route('/{record}/edit'),
+            'index' => Pages\ListAlunos::route('/'),
+            'create' => Pages\CreateAlunos::route('/create'),
+            'edit' => Pages\EditAlunos::route('/{record}/edit'),
         ];
     }
 }

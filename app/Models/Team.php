@@ -78,4 +78,14 @@ class Team extends Model
     {
         return $this->HasMany(Encarregados::class);
     }
+
+    public function alunos(): HasMany
+    {
+        return $this->HasMany(Alunos::class);
+    }
+
+    public function tarefas(): HasMany
+    {
+        return $this->HasMany(Tarefas::class);
+    }
 }

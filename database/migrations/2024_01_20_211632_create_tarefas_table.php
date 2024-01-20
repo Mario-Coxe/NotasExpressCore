@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alunos', function (Blueprint $table) {
+        Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_active')->default(1);
-            $table->string('name');
-            $table->string('bi');
-            $table->enum('sex', ['Masculino', 'Femenino']);
-            $table->string('address');
-            $table->string('email')->unique()->nullable();
-            $table->string('phone_number')->unique();
-            $table->string('password');
+            $table->foreignId('professor_id')->constrained('professores')->onDelete('cascade');
+            $table->foreignId('subject_id')->constrained('disciplinas')->onDelete('cascade');
             $table->foreignId('class_id')->constrained('turmas')->onDelete('cascade');
-            $table->string('photo')->default('default.png');
+            $table->string('description');
+            $table->date('due_date')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alunos');
+        Schema::dropIfExists('tarefas');
     }
 };
