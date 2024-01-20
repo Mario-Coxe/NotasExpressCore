@@ -22,6 +22,8 @@ class EventosResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Escola';
+
     public static function form(Form $form): Form
     {
 

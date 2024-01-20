@@ -44,9 +44,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Inter')
             ->navigationGroups([
-                'Gestão de Professor',
-                'System Management',
-                'User Management'
+                'Gestão de Professores',
+                'Gestão de Alunos',
+                'Gestão de Turmas',
+                'Escola'
             ])
             ->favicon(asset('images/favicon.ico'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

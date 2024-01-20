@@ -19,6 +19,7 @@ class HorariosResource extends Resource
 {
     protected static ?string $model = Horarios::class;
     protected static ?string $navigationIcon = 'heroicon-o-clock';
+    protected static ?string $navigationGroup = 'Gestão de Turmas';
 
     public static function form(Form $form): Form
     {

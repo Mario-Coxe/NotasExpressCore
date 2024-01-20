@@ -21,6 +21,9 @@ class ProfessoresResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-plus';
 
+    protected static ?string $navigationGroup = 'Gestão de Professores';
+
+
     public static function form(Form $form): Form
     {
         return $form

@@ -21,6 +21,8 @@ class AnosLetivosResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
+    protected static ?string $navigationGroup = 'Escola';
+
     public static function form(Form $form): Form
     {
         return $form

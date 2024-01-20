@@ -21,7 +21,7 @@ class TarefasResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Gestão de Professor';
+    protected static ?string $navigationGroup = 'Gestão de Professores';
     
 
     public static function form(Form $form): Form

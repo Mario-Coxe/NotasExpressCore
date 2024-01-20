@@ -21,6 +21,8 @@ class TurmasResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-magnifying-glass';
 
+    protected static ?string $navigationGroup = 'Gestão de Turmas';
+
     public static function form(Form $form): Form
     {
 

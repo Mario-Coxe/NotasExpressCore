@@ -22,6 +22,8 @@ class DisciplinasResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
+    protected static ?string $navigationGroup = 'Escola';
+
     public static function form(Form $form): Form
     {
 

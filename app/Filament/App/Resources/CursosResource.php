@@ -22,6 +22,8 @@ class CursosResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-queue-list';
 
+    protected static ?string $navigationGroup = 'Escola';
+
     public static function form(Form $form): Form
     {
 
