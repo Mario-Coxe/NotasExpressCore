@@ -146,10 +146,10 @@ class AlunosResource extends Resource
                     ->searchable()
                     ->label("Morada"),
                 Tables\Columns\ImageColumn::make('photo')
+                    ->circular()
                     ->label("Imagem"),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
-                    ->circular()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
