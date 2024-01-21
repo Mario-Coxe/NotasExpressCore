@@ -22,7 +22,7 @@ class TarefasResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Gestão de Professores';
-    
+
 
     public static function form(Form $form): Form
     {
@@ -65,11 +65,20 @@ class TarefasResource extends Resource
                                 '1' => 'Activo',
                                 '0' => 'Desativo',
                             ]),
+                    ])->columns(2),
+
+                    Forms\Components\Section::make('')
+                    ->schema([
                         Forms\Components\Textarea::make('description')
                             ->label("Descrição")
-                            ->autosize()
-
-                    ])->columns(2),
+                            ->autosize(),
+                    ]),
+                    Forms\Components\Section::make('')
+                    ->schema([
+                        Forms\Components\DatePicker::make('due_date')
+                            ->label("Data De Entrega")
+                            ->native(true)
+                    ]),
             ]);
     }
 
@@ -90,6 +99,9 @@ class TarefasResource extends Resource
                     ->searchable()
                     ->limit(20)
                     ->label("Disciplina"),
+                Tables\Columns\TextColumn::make('due_date')
+                    ->searchable()
+                    ->label("Data de Entrega"),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
@@ -121,12 +133,11 @@ class TarefasResource extends Resource
                         )
                 ]),
             ]);
-           
     }
 
     public static function canCreate(): bool
     {
-       return false;
+        return false;
     }
 
     public static function getRelations(): array
