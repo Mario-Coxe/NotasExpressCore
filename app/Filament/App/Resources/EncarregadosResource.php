@@ -59,9 +59,15 @@ class EncarregadosResource extends Resource
                         Forms\Components\TextInput::make('password')
                             ->label("Senha")
 
-
                     ])->columns(2),
+                Forms\Components\Section::make('')
+                    ->schema([
+                        Forms\Components\FileUpload::make('photo')
+                            ->label("Imagem")
+                            ->visibility('public')
+                            ->directory('incharges-images')
 
+                    ]),
             ]);
     }
 
@@ -87,6 +93,9 @@ class EncarregadosResource extends Resource
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label("Imagem")
+                    ->circular()
             ])
             ->filters([
                 //

@@ -64,11 +64,15 @@ class ProfessoresResource extends Resource
                         Forms\Components\TextInput::make('password')
                             ->label("Senha")
                             ->required()
-
-
-
                     ])->columns(2),
+                Forms\Components\Section::make('')
+                    ->schema([
+                        Forms\Components\FileUpload::make('photo')
+                            ->label("Imagem")
+                            ->visibility('public')
+                            ->directory('teachers-images')
 
+                    ]),
             ]);
     }
 
@@ -94,6 +98,9 @@ class ProfessoresResource extends Resource
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label("Imagem")
+                    ->circular()
             ])
             ->filters([
                 //

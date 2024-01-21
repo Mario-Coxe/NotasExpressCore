@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
             $table->string('password');
-            $table->string('photo')->default('default.png');
+            $table->string('photo')->default('incharges-images/default.png');
             $table->timestamps();
         });
     }
