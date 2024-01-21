@@ -11,7 +11,7 @@ class Alunos extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'class_id', 'bi', 'is_active', 'sex', 'address', 'email', 'phone_number', 'password', 'photo'];
+    protected $fillable = ['name', 'class_id', 'incharge_id', 'relationship', 'bi', 'is_active', 'sex', 'address', 'email', 'phone_number', 'password', 'photo'];
 
     protected $casts = [
         'password' => 'hashed',
@@ -25,5 +25,10 @@ class Alunos extends Model
     public function turmas(): BelongsTo
     {
         return $this->belongsTo(Turmas::class, "class_id");
+    }
+
+    public function encarregados(): BelongsTo
+    {
+        return $this->belongsTo(Encarregados::class, "incharge_id");
     }
 }

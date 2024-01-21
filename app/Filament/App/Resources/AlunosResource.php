@@ -36,6 +36,9 @@ class AlunosResource extends Resource
             ? $currentTeam->turmas->pluck('name', 'id')->toArray()
             : [];
 
+        $incharge = $currentTeam
+            ? $currentTeam->encarregados->pluck('name', 'id')->toArray()
+            : [];
 
 
         return $form
@@ -74,7 +77,26 @@ class AlunosResource extends Resource
                             ->label("Turma")
                             ->options($class)
                             ->required(),
-                    ])->columns(2),
+                        Forms\Components\Select::make('incharge_id')
+                            ->label("Encarregado")
+                            ->options($incharge)
+                            ->required(),
+
+                        Forms\Components\Select::make('relationship')
+                            ->label('Parentesco')
+                            ->options([
+                                'Pai' => 'Pai',
+                                'Mãe' => 'Mãe',
+                                'Avô' => 'Avô',
+                                'Tio' => 'Tio',
+                                'Tia' => 'Tia',
+                                'Padrasto' => 'Padrasto',
+                                'Madrasta' => 'Madrasta',
+                                'Irmão' => 'Irmão',
+                                'Irmã' => 'Irmã',
+                                'Outro' => 'Outro',
+                            ])
+                    ])->columns(3),
                 Forms\Components\Section::make('Acesso ao aplicativo')
                     ->schema([
                         Forms\Components\TextInput::make('phone_number')
@@ -104,15 +126,18 @@ class AlunosResource extends Resource
                 Tables\Columns\TextColumn::make('phone_number')
                     ->searchable()
                     ->label("Telefone"),
+                Tables\Columns\TextColumn::make('encarregados.name')
+                    ->searchable()
+                    ->label("Encarregado"),
+                Tables\Columns\TextColumn::make('turmas.name')
+                    ->searchable()
+                    ->label("Turma"),
                 Tables\Columns\TextColumn::make('bi')
                     ->searchable()
                     ->label("Número do BI"),
                 Tables\Columns\TextColumn::make('address')
                     ->searchable()
                     ->label("Morada"),
-                Tables\Columns\TextColumn::make('turmas.name')
-                    ->searchable()
-                    ->label("Turma"),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),

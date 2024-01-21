@@ -23,6 +23,20 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('password');
             $table->foreignId('class_id')->constrained('turmas')->onDelete('cascade');
+            $table->foreignId('incharge_id')->constrained('encarregados')->onDelete('cascade');
+            $table->enum('relationship', [
+                'Pai',
+                'Mãe',
+                'Avô',
+                'Tio',
+                'Tia',
+                'Padrasto',
+                'Madrasta',
+                'Irmão',
+                'Irmã',
+                'Outro',
+            ]);
+
             $table->string('photo')->default('default.png');
             $table->timestamps();
         });
