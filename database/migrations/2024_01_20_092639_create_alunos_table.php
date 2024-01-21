@@ -37,7 +37,7 @@ return new class extends Migration
                 'Outro',
             ]);
 
-            $table->string('photo')->default('default.png');
+            $table->string('photo')->default('student-images/default.png');
             $table->timestamps();
         });
     }

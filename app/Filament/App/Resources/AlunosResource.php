@@ -109,7 +109,14 @@ class AlunosResource extends Resource
                         Forms\Components\TextInput::make('password')
                             ->label("Senha")
                     ])->columns(2),
+                Forms\Components\Section::make('')
+                    ->schema([
+                        Forms\Components\FileUpload::make('photo')
+                            ->label("Imagem")
+                            ->visibility('public')
+                            ->directory('student-images')
 
+                    ]),
             ]);
     }
 
@@ -138,9 +145,20 @@ class AlunosResource extends Resource
                 Tables\Columns\TextColumn::make('address')
                     ->searchable()
                     ->label("Morada"),
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label("Imagem"),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
+                    ->circular()
                     ->boolean(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
