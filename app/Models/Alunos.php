@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Models\UserLogin;
+use Illuminate\Support\Facades\Hash;
 
 class Alunos extends Model
 {
@@ -30,5 +31,21 @@ class Alunos extends Model
     public function encarregados(): BelongsTo
     {
         return $this->belongsTo(Encarregados::class, "incharge_id");
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($student) {
+            $userLogin = new UserLogin([
+                'team_id' => $student->team_id,
+                'phone_number' => $student->phone_number,
+                'password' => Hash::make($student->password),
+                'is_active' => $student->is_active,
+                'type_user' => 'student', 
+            ]);
+            $userLogin->save();
+        });
     }
 }

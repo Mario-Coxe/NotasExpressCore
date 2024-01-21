@@ -88,4 +88,9 @@ class Team extends Model
     {
         return $this->HasMany(Tarefas::class);
     }
+
+    public function user_login(): HasMany
+    {
+        return $this->HasMany(Tarefas::class);
+    }
 }
