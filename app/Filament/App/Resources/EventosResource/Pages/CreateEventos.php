@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateEventos extends CreateRecord
 {
     protected static string $resource = EventosResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

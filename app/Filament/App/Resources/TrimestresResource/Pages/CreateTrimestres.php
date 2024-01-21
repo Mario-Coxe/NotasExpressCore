@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTrimestres extends CreateRecord
 {
     protected static string $resource = TrimestresResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

@@ -16,4 +16,9 @@ class CreateAnosLetivos extends CreateRecord
 
         return redirect(AnosLetivosResource::route('/'));
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
