@@ -19,6 +19,8 @@ class UltimosAlunos extends BaseWidget
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('turmas.name'),
+                Tables\Columns\TextColumn::make('encarregados.name'),
+
             ]);
     }
 }
