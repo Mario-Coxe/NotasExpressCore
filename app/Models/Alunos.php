@@ -41,7 +41,7 @@ class Alunos extends Model
             $userLogin = new UserLogin([
                 'team_id' => $student->team_id,
                 'phone_number' => $student->phone_number,
-                'password' => Hash::make($student->password),
+                'password' => $student->password,
                 'is_active' => $student->is_active,
                 'type_user' => 'student', 
             ]);
