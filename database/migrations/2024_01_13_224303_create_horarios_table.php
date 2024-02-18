@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('subjet_id')->constrained('disciplinas')->onDelete('cascade');
             $table->boolean('is_active')->default(1);
             $table->string('day_of_week');
+            $table->string('abbreviation');
             $table->string("start_time");
             $table->string("end_time");
             $table->timestamps();

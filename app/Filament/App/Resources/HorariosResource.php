@@ -90,10 +90,6 @@ class HorariosResource extends Resource
                             ->label("Disciplina")
                             ->options($subject)
                             ->required(),
-                        Forms\Components\Select::make('trimester_id')
-                            ->label("Trimestre")
-                            ->options($quarter)
-                            ->required(),
                     ]),
 
             ]);
@@ -108,9 +104,6 @@ class HorariosResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('turmas.name')
                     ->label("Turma")
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('trimestres.name')
-                    ->label("Trimestre")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('day_of_week')
                     ->label("Dia de Semana")
