@@ -71,15 +71,19 @@ class HorariosResource extends Resource
                             ->label("Dia De Semana")
                             ->required()
                             ->options([
-                                'Segunda-feira' => 'Segunda-feira',
-                                'Terça-feira' => 'Terça-feira',
-                                'Quarta-feira' => 'Quarta-feira',
-                                'Quinta-feira' => 'Quinta-feira',
-                                'Sexta-feira' => 'Sexta-feira',
+                                'Segunda' => 'Segunda-feira',
+                                'Terça' => 'Terça-feira',
+                                'Quarta' => 'Quarta-feira',
+                                'Quinta' => 'Quinta-feira',
+                                'Sexta' => 'Sexta-feira',
                                 'Sábado' => 'Sábado',
                                 'Domingo' => 'Domingo',
                             ]),
-                    ])->columns(2),
+                        Forms\Components\TextInput::make('abbreviation')
+                            ->label("Abreviatura da Disciplina")
+                            ->maxLength(3)
+                            ->required(),
+                    ])->columns(3),
                 Forms\Components\Section::make('Relação')
                     ->schema([
                         Forms\Components\Select::make('class_id')
@@ -101,6 +105,9 @@ class HorariosResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('disciplinas.name')
                     ->label("Disciplina")
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('abbreviation')
+                    ->label("Disciplina abreviatura")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('turmas.name')
                     ->label("Turma")
