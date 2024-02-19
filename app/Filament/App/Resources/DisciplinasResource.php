@@ -52,7 +52,11 @@ class DisciplinasResource extends Resource
                             ->label("Curso")
                             ->options($course)
                             ->required(),
-                    ]),
+                        Forms\Components\TextInput::make('abbreviation')
+                            ->label("Abreviatura da Disciplina")
+                            ->maxLength(3)
+                            ->required(),
+                    ])->columns(3),
                 Forms\Components\Section::make('Informações')
                     ->schema([
                         Forms\Components\TextInput::make('name')
@@ -86,6 +90,10 @@ class DisciplinasResource extends Resource
                 Tables\Columns\IconColumn::make('is_active')
                     ->label("Estado")
                     ->boolean(),
+                Tables\Columns\TextColumn::make('abbreviation')
+                    ->label("Disciplina abreviatura")
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label("Descrição")
                     ->searchable()

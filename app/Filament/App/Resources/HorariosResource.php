@@ -79,11 +79,7 @@ class HorariosResource extends Resource
                                 'Sábado' => 'Sábado',
                                 'Domingo' => 'Domingo',
                             ]),
-                        Forms\Components\TextInput::make('abbreviation')
-                            ->label("Abreviatura da Disciplina")
-                            ->maxLength(3)
-                            ->required(),
-                    ])->columns(3),
+                    ])->columns(2),
                 Forms\Components\Section::make('Relação')
                     ->schema([
                         Forms\Components\Select::make('class_id')
@@ -105,9 +101,6 @@ class HorariosResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('disciplinas.name')
                     ->label("Disciplina")
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('abbreviation')
-                    ->label("Disciplina abreviatura")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('turmas.name')
                     ->label("Turma")
