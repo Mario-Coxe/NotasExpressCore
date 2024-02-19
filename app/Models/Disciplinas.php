@@ -11,7 +11,7 @@ class Disciplinas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'is_active', 'description', 'responsible_professor_id', 'course_id'];
+    protected $fillable = ['name', 'is_active', 'description', 'abbreviation', 'responsible_professor_id', 'course_id'];
 
     public function team(): BelongsTo
     {

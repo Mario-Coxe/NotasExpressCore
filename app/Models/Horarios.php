@@ -11,7 +11,7 @@ class Horarios extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['class_id', "abbreviation", 'is_active', 'start_time', 'end_time', 'subjet_id', 'trimester_id', 'day_of_week'];
+    protected $fillable = ['class_id', 'is_active', 'start_time', 'end_time', 'subjet_id', 'trimester_id', 'day_of_week'];
 
     public function team(): BelongsTo
     {
