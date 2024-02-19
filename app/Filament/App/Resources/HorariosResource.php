@@ -46,13 +46,13 @@ class HorariosResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Tempo')
                     ->schema([
-                        Forms\Components\TimePicker::make('end_time')
+                        Forms\Components\TimePicker::make('start_time')
                             ->label("Início")
                             ->prefix('Início')
                             ->suffix('Minutos/Horas')
                             ->seconds(false)
                             ->native(true),
-                        Forms\Components\TimePicker::make('start_time')
+                        Forms\Components\TimePicker::make('end_time')
                             ->label("Fim")
                             ->prefix('Fim')
                             ->seconds(false)
